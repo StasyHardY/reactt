@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -12,6 +13,19 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
             onSort({ path: item, order: "asc" });
         } 
     };
+    const topDownArrow = (path) => {
+        if (selectedSort.path === path) {
+            return (
+                <span>
+                    <i className={"bi " + (selectedSort.order === "asc" 
+                    ? "bi-caret-up-fill" 
+                    : "bi-caret-down-fill"
+                    )}
+                    ></i>
+                </span>
+            );
+        }
+    }
 
     return <thead>
         <tr>
@@ -19,20 +33,11 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                 <th 
                     key={column} onClick={columns[column].path ? () => handleSort(columns[column].path) : undefined}
                     {...{ role: columns[column].path && "button" }} scope="col">{columns[column].name}
-                    {selectedSort.path === columns[column].path && (<i
-                        className={`bi bi-caret-${
-                            selectedSort.order === "asc" ? "up" : "down"
-                        }-fill`}
-                    />)}
+                   {columns[column].path && (
+                            topDownArrow(columns[column].path)
+                        )}
                 </th>
             ))}
-       
-            {/* <th scope="col">Качества</th>
-       <th onClick={()=> handleSort("profession.name")} scope="col">Профессия</th>
-       <th onClick={()=> handleSort("completedMeetings")} scope="col">Встретился, раз</th>
-       <th onClick={()=> handleSort("rate")} scope="col">Оценка</th>
-       <th onClick={()=> handleSort("bookmark")} scope="col">Избранное</th>
-       <th/> */}
         </tr>
     </thead>;
 };

@@ -21,7 +21,8 @@ const User = ({
                     <Quality key={qual._id} {...qual} />
                 ))}
             </td>
-            <td>{profession.name}</td>
+            <td>
+                {profession.name}</td>
             <td>{completedMeetings}</td>
             <td>{rate} /5</td>
             <td>
