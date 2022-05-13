@@ -8,6 +8,7 @@ import api from "../api";
 import SearchStatus from "./searchStatus";
 import UserTable from "./userTable";
 import _ from "lodash";
+import SearchUsers from "./searchUsers";
 
 const UsersList =() => {
 
@@ -15,12 +16,17 @@ const UsersList =() => {
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "desc" });
+    const [searchUser, setSearchUser] = useState(); 
     const pageSize = 4;
 
     const [users, setUsers] = useState(null);
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
+    const handleSearchUser = ({target}) => {
+        setSearchUser(target.value);
+        setSelectedProf();
+    }
     const handleToggleBookMark = (id) => {
         setUsers(
             users.map((user) => {
@@ -51,6 +57,7 @@ const UsersList =() => {
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
+        setSearchUser("");
     };
 
     const handleSort = (item) => {
@@ -60,6 +67,8 @@ const UsersList =() => {
     if (users) {
         const filteredUsers = selectedProf
             ? users.filter((user) => _.isEqual(user.profession, selectedProf))
+            : searchUser
+            ? users.filter((user) => user.name.includes(searchUser))
             : users;
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
@@ -88,6 +97,7 @@ const UsersList =() => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <SearchUsers value={searchUser} onChangeUser={handleSearchUser} />
                     {count > 0 && (
                         <UserTable users={usersCrop} selectedSort={sortBy} onSort={handleSort} onDelete={handleDelete} onToggleBookMark={handleToggleBookMark} />    
                     )}
