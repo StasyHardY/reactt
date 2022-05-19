@@ -1,16 +1,16 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { paginate } from "../utils/paginate";
-import Pagination from "./pagination";
-import GroupList from "./Group";
-import api from "../api";
-import SearchStatus from "./searchStatus";
-import UserTable from "./userTable";
+import { paginate } from "../../../utils/paginate";
+import Pagination from "../../common/pagination";
+import GroupList from "../../common/Group";
+import api from './../../../../api'
+import SearchStatus from "../../ui/searchStatus";
+import UserTable from "../../ui/userTable";
 import _ from "lodash";
-import SearchUsers from "./searchUsers";
+import SearchUsers from "../../searchUsers";
 
-const UsersList =() => {
+const UsersListPage =() => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
@@ -26,7 +26,7 @@ const UsersList =() => {
     const handleSearchUser = ({target}) => {
         setSearchUser(target.value);
         setSelectedProf();
-    }
+    };
     const handleToggleBookMark = (id) => {
         setUsers(
             users.map((user) => {
@@ -117,8 +117,8 @@ const UsersList =() => {
 };
 
 
- UsersList.propTypes = {
+ UsersListPage.propTypes = {
      users: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;

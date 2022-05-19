@@ -3,11 +3,12 @@ import React from "react";
 import Users from "./components/users";
 import Login from "./components/login";
 import Main from "./components/main";
-import NavBar from "./components/navBar";
-import UserPage from "./components/userPage";
-import UsersList from "./components/usersList";
+
+import UserPage from "./components/page/userPage";
+import UsersListPage from "./components/page/usersListPage/usersListPage";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from "./components/notFound";
+import NavBar from './components/ui/navBar';
 
 function App() {
     return ( 
@@ -15,10 +16,8 @@ function App() {
             <NavBar/>
             <Switch>
                 <Route path="/" exact component={Main} />
-                <Route path="/login" component={Login} />
-                <Route path="/users/:userId?" render={(props) => <Users {...props} component={Users} />
-                }
-                />
+                <Route path="/login/:type?" component={Login} />
+                <Route path="/users/:id?/:edit?"  component={Users} />
                 <Route path="/404" component={NotFound} />
                 <Redirect to="/404" />
             </Switch>

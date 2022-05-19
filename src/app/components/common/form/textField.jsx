@@ -3,6 +3,10 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 const TextFild = ({label, name, type, onChange, value, error}) => {
+
+   const handleChange = ({target}) => { 
+      onChange({ name: target.name, value: target.value });
+      }
    const getInputClasses = () => { 
       return "form-control" + (error ? " is-invalid" : "")
    }
@@ -11,7 +15,7 @@ const TextFild = ({label, name, type, onChange, value, error}) => {
          <label htmlFor={name}></label>{label}
       <input 
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       name={name}
       id={name}
       type={type}
@@ -27,11 +31,11 @@ TextFild.defaultProps={
    type:"text"
 }
 
-TextFild.PropTypes={
+TextFild.propTypes={
    label:PropTypes.string,
    name:PropTypes.string,
    type:PropTypes.string,
-   onChange:PropTypes.function,
+   onChange:PropTypes.func,
    value:PropTypes.string,
    error:PropTypes.string
 }
